@@ -9,19 +9,22 @@ vector<int> dijkstra_shortest_path(const Graph & G, int source, vector<int> & pr
     previous.assign(G.numVertices, -1); 
     using int_pairs = pair<int, int>;
     priority_queue<int_pairs, vector<int_pairs>, greater<int_pairs>> pq; 
+
+    dist[source] = 0; 
     pq.push({0, source});
-    while(!pq.empty()){
+
+    while (!pq.empty()) {
         int d = pq.top().first; 
         int u = pq.top().second; 
         pq.pop(); 
 
-        if(u > dist[u]){
-            continue; 
-        }
+        if (d > dist[u]) continue; 
+
         for (Edge e: G[u]){
             int v = e.dst; 
             int weight = e.weight; 
-            if (dist[u] + weight < dist[v] && dist[u] != INF){
+
+            if (dist[u] != INF && dist[u] + weight < dist[v]) {
                 dist[v] = dist[u] + weight; 
                 previous[v] = u; 
                 pq.push({dist[v], v}); 
@@ -30,6 +33,7 @@ vector<int> dijkstra_shortest_path(const Graph & G, int source, vector<int> & pr
     }
     return dist; 
 }
+
 
 vector<int> extract_shortest_path(const vector<int>& distances, const vector<int>& previous, int destination) {
     vector<int> path;
