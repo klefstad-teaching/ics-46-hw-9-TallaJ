@@ -9,7 +9,7 @@ vector<int> dijkstra_shortest_path(const Graph & G, int source, vector<int> & pr
     previous.assign(G.numVertices, -1); 
     using int_pairs = pair<int, int>;
     priority_queue<int_pairs, vector<int_pairs>, greater<int_pairs>> pq; 
-    pq.push({0, source})
+    pq.push({0, source});
     while(!pq.empty()){
         int d = pq.top().first; 
         int u = pq.top().second; 
